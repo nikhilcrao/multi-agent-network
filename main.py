@@ -1,5 +1,6 @@
 from flask import Flask, redirect
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
+from werkzeug.exceptions import NotFound
 
 import client
 import server
@@ -10,15 +11,10 @@ if __name__ == "__main__":
 
     app = Flask(__name__)
     app.wsgi_app = DispatcherMiddleware(
-        app,
+        NotFound(),
         mounts={
             "/server": server_app,
             "/web": client_app,
         },
     )
-
-    @app.route("/")
-    def home():
-        return {"hello": "world"}
-
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
