@@ -1,1 +1,4 @@
-server/.secrets/*
+server/__pycache__/
+server/.secrets/
+
+client/__pycache__/
